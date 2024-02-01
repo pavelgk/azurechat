@@ -3,7 +3,7 @@ import { MenuItem } from "@/components/menu";
 import { Button } from "@/components/ui/button";
 import { SoftDeleteChatThreadByID } from "@/features/chat/chat-services/chat-thread-service";
 import { useGlobalMessageContext } from "@/features/global-message/global-message-context";
-import { FileText, MessageCircle, Trash } from "lucide-react";
+import { FileText, MessageCircle, Trash, Pencil } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { FC } from "react";
 import { ChatThreadModel } from "../chat-services/models";
@@ -67,6 +67,22 @@ export const MenuItems: FC<Prop> = (props) => {
             }}
           >
             <Trash size={16} />
+          </Button>
+          <Button
+             className="invisible  group-hover/item:visible hover:text-brand"
+             size={"sm"}
+             variant={"ghost"}
+             onClick={async (e) => {
+               e.preventDefault();
+               const yesEdit = confirm(
+                 "Are you sure you want rename this chat?"
+               );
+               if (yesEdit) {
+                 await sendData(thread.id);
+               }
+             }}
+           >
+             <Pencil size={16} />
           </Button>
         </MenuItem>
       ))}
