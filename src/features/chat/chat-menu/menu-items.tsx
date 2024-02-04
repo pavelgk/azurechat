@@ -28,6 +28,17 @@ export const MenuItems: FC<Prop> = (props) => {
     }
   };
 
+  const sendUpdateData = async (threadID: string) => {
+    try {
+      await SoftDeleteChatThreadByID(threadID);
+      router.refresh();
+      router.replace("/chat");
+    } catch (e) {
+      console.log(e);
+      showError("" + e);
+    }
+  };
+
   return (
     <>
       {props.menuItems.map((thread, index) => (
@@ -78,7 +89,7 @@ export const MenuItems: FC<Prop> = (props) => {
                  "Are you sure you want rename this chat?"
                );
                if (yesEdit) {
-                 await sendData(thread.id);
+                 await sendUpdateData(thread.id);
                }
              }}
            >
